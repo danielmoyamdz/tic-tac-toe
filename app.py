@@ -13,4 +13,4 @@ if __name__ == '__main__':
     app.run(debug=True)
     
     # For generating static files
-    # freezer.freeze() 
+    freezer.freeze() 
