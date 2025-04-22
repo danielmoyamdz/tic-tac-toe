@@ -20,13 +20,13 @@ A modern implementation of the classic Tic Tac Toe game with an unbeatable AI op
 
 ## Live Demo
 
-Visit the live demo at: [Your GitHub Pages URL]
+Visit the live demo at: https://danielmoyamdz.github.io/tic-tac-toe/
 
 ## Local Development
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/tic-tac-toe.git
+git clone https://github.com/danielmoyamdz/tic-tac-toe.git
 cd tic-tac-toe
 ```
 
