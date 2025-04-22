@@ -29,7 +29,9 @@ class TicTacToe {
 
     createBoard() {
         this.board = Array(9).fill('');
-        this.boardElement.style.gridTemplateColumns = 'repeat(3, auto)';
+        this.boardElement.style.display = 'grid';
+        this.boardElement.style.gridTemplateColumns = 'repeat(3, var(--cell-size))';
+        this.boardElement.style.gap = '10px';
         this.boardElement.innerHTML = '';
         
         for (let i = 0; i < 9; i++) {
