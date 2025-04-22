@@ -1,75 +1,38 @@
 class TicTacToe {
     constructor() {
-        this.boardSize = 3;
-        this.board = [];
+        this.board = Array(9).fill('');
         this.currentPlayer = 'X';
         this.gameMode = 'ai';
         this.gameActive = true;
-        this.winningCombinations = [];
+        this.winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6] // Diagonals
+        ];
         
         this.initializeGame();
     }
 
     initializeGame() {
-        this.boardSizeSelect = document.getElementById('boardSize');
         this.statusDisplay = document.getElementById('status');
         this.restartButton = document.getElementById('restartButton');
         this.vsAIButton = document.getElementById('vsAI');
         this.vsHumanButton = document.getElementById('vsHuman');
         this.boardElement = document.getElementById('board');
 
-        this.boardSizeSelect.addEventListener('change', () => {
-            this.boardSize = parseInt(this.boardSizeSelect.value);
-            this.updateWinningCombinations();
-            this.restartGame();
-        });
-
         this.restartButton.addEventListener('click', this.restartGame.bind(this));
         this.vsAIButton.addEventListener('click', () => this.setGameMode('ai'));
         this.vsHumanButton.addEventListener('click', () => this.setGameMode('human'));
 
-        this.updateWinningCombinations();
         this.createBoard();
     }
 
-    updateWinningCombinations() {
-        this.winningCombinations = [];
-        
-        // Rows
-        for (let i = 0; i < this.boardSize; i++) {
-            const row = [];
-            for (let j = 0; j < this.boardSize; j++) {
-                row.push(i * this.boardSize + j);
-            }
-            this.winningCombinations.push(row);
-        }
-        
-        // Columns
-        for (let i = 0; i < this.boardSize; i++) {
-            const col = [];
-            for (let j = 0; j < this.boardSize; j++) {
-                col.push(j * this.boardSize + i);
-            }
-            this.winningCombinations.push(col);
-        }
-        
-        // Diagonals
-        const diagonal1 = [];
-        const diagonal2 = [];
-        for (let i = 0; i < this.boardSize; i++) {
-            diagonal1.push(i * this.boardSize + i);
-            diagonal2.push(i * this.boardSize + (this.boardSize - 1 - i));
-        }
-        this.winningCombinations.push(diagonal1);
-        this.winningCombinations.push(diagonal2);
-    }
-
     createBoard() {
-        this.board = Array(this.boardSize * this.boardSize).fill('');
-        this.boardElement.style.gridTemplateColumns = `repeat(${this.boardSize}, auto)`;
+        this.board = Array(9).fill('');
+        this.boardElement.style.gridTemplateColumns = 'repeat(3, auto)';
         this.boardElement.innerHTML = '';
         
-        for (let i = 0; i < this.boardSize * this.boardSize; i++) {
+        for (let i = 0; i < 9; i++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
             cell.setAttribute('data-cell', '');
@@ -144,7 +107,7 @@ class TicTacToe {
     }
 
     restartGame() {
-        this.board = Array(this.boardSize * this.boardSize).fill('');
+        this.board = Array(9).fill('');
         this.gameActive = true;
         this.currentPlayer = 'X';
         this.statusDisplay.textContent = `Player ${this.currentPlayer}'s turn`;
@@ -162,7 +125,7 @@ class TicTacToe {
         let bestScore = -Infinity;
         let bestMove;
 
-        for (let i = 0; i < this.board.length; i++) {
+        for (let i = 0; i < 9; i++) {
             if (this.board[i] === '') {
                 this.board[i] = 'O';
                 let score = this.minimax(this.board, 0, false);
@@ -189,7 +152,7 @@ class TicTacToe {
 
         if (isMaximizing) {
             let bestScore = -Infinity;
-            for (let i = 0; i < board.length; i++) {
+            for (let i = 0; i < 9; i++) {
                 if (board[i] === '') {
                     board[i] = 'O';
                     let score = this.minimax(board, depth + 1, false);
@@ -200,7 +163,7 @@ class TicTacToe {
             return bestScore;
         } else {
             let bestScore = Infinity;
-            for (let i = 0; i < board.length; i++) {
+            for (let i = 0; i < 9; i++) {
                 if (board[i] === '') {
                     board[i] = 'X';
                     let score = this.minimax(board, depth + 1, true);
