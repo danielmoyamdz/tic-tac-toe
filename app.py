@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory
 import os
 import shutil
+import re
 
 app = Flask(__name__)
 
@@ -24,6 +25,10 @@ def build_static_files():
     # Copy and process templates
     with open('templates/index.html', 'r') as f:
         content = f.read()
+    
+    # Fix static file paths
+    content = content.replace('href="static/', 'href="./static/')
+    content = content.replace('src="static/', 'src="./static/')
     
     # Write the processed index.html to build directory
     with open('build/index.html', 'w') as f:
