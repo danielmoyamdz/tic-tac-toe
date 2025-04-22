@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flask
+          pip install -r requirements.txt
           
       - name: Build static files
         run: |
@@ -32,4 +32,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-          publish_branch: gh-pages 
+          publish_branch: gh-pages
+          commit_message: "Deploy static files"
+          force: true 

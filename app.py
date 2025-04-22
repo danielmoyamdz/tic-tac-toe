@@ -1,10 +1,8 @@
 from flask import Flask, render_template, send_from_directory
-from flask_frozen import Freezer
 import os
 import shutil
 
 app = Flask(__name__)
-freezer = Freezer(app)
 
 @app.route('/')
 def index():
@@ -45,6 +43,4 @@ if __name__ == '__main__':
         app.run(debug=True)
     else:
         # For generating static files
-        app.config['FREEZER_DESTINATION'] = 'build'
-        app.config['FREEZER_RELATIVE_URLS'] = True
-        freezer.freeze() 
+        build_static_files() 
